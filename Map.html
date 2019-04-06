@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://secure.fortifiedhome-ibhs.com/ibhs_uploads/contentV2/maps/usa/jsmaps/jsmaps-libs.js"></script>
+  <script src="https://secure.fortifiedhome-ibhs.com/ibhs_uploads/contentV2/maps/usa/jsmaps/jsmaps-panzoom.js"></script>
+  <script src="https://secure.fortifiedhome-ibhs.com/ibhs_uploads/contentV2/maps/usa/jsmaps/jsmaps.min.js"></script>
+  <script src="https://secure.fortifiedhome-ibhs.com/ibhs_uploads/contentV2/maps/usa/maps/usa.js"></script>
+  <script src="https://secure.fortifiedhome-ibhs.com/ibhs_uploads/contentV2/canvg.js"></script>
+</head>
+<body>
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12" style="padding:10px">
+        <div class="btn btn-default" onClick="SaveImage()">Download Map <div class="fa fa-download" /></div>
+      </div>
+      <div class="col-md-12">
+
+        <div id="world-map"></div>
+        <div id="svgClone" />
+
+        <canvas id='canvas' style='display:none;width:1200px'></canvas>
+        <a id="lnk" href="" download="map.png" style="display:none">download</a>
+
+      </div>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function () {
+      console.log(" In Ready...");
+      GetMapStats();
+    });
+    function GetMapStats() {
+      var Url = 'http://ibhsfortified.cloudapp.net/IBHSStatsAPI';
+      var URL = Url + "/api/getEvaluationTotalsByState";
+      console.log(URL);
+
+      $.ajax({
+        type: "GET",
+        url: URL,
+
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: OnGetSuccess,
+        error: OnGetFail,
+        global: false,
+      });
+
+      function OnGetSuccess(data) {
+          $.each(window.JSMaps.maps.usa.paths, function (i, j) {
+            var cnt = 0;
+            $.each(data, function (l, m) {
+              if (m.StateCode == j.abbreviation.substring(0, 2)) {
+                cnt = m.Total;
+              }
+            });
+
+            if (cnt > 0) {
+              j.color = "#056938";
+              j.abbreviation = j.abbreviation.substring(0, 2) + "\n" + cnt;
+            } else {
+              j.color = "#59798e";
+              j.abbreviation = j.abbreviation.substring(0, 2);
+            }
+
+          });
+
+          $('#world-map').JSMaps({
+            map: 'usa',
+            textAreaWidth: 0,
+            stateClickAction: 'none',
+            selectElement: false,
+            onReady: function () {
+           
+            }
+
+        });
+      
+        $('#world-map').trigger('reDraw', window.JSMaps.maps.usa);
+
+      }
+      function OnGetFail(data) {
+        console.dir("ERROR: " + JSON.stringify(data));
+      }
+    }
+    function SaveImage() {
+      canvg('canvas', $("svg").parent().html());
+      $("#lnk").attr("href", $("#canvas")[0].toDataURL())
+      $("#lnk")[0].click();
+    }
+  </script>
+</body>
+</html>

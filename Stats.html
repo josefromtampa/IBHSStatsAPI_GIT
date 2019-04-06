@@ -1,0 +1,597 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+  <style>
+    .countTable {
+      border: 0px !important;
+    }
+    .panel {
+      margin: 0px !important;
+    }
+    .label-primary {
+      background-color:#446655 ;
+    }
+    .total_answer {
+      width: 80%;
+      text-align: center;
+      background-color: white;
+      border-radius: 3px;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    .countTable {
+      border-bottom: 1px dotted white;
+      font-size: 15px;
+    }
+
+    .borderPanel {
+      padding: 6px;
+    }
+
+    .horizSplit {
+      height: 2px;
+      background: #465;
+      opacity: .6;
+    }
+
+    .separator {
+      height: 2px;
+      background-color: #c9c8c8;
+      border-radius: 4px;
+      margin: 10px;
+    }
+
+    .text-heading {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .total_label {
+      font-weight: bold;
+      padding-right: 5px;
+      padding-left: 0px;
+      padding-bottom: 1px;
+      padding-top: 4px;
+    }
+    .borderPanel {
+      background-color: #dfdfdf;
+    }
+  </style>
+
+
+  <div class="panel panel-default" style="margin: 0px;">
+    <div class="panel-heading">
+      Monthly Fortified Totals
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="col-lg-9 col-sm-12 panel panel-body" style="border-radius: 8px;background: transparent;box-shadow: none;display:none" id="MainPanelLeft">
+
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <img id="cntTotBusy" src="../../Images/ProgressImage.gif" style="position: absolute;left: 50%;top: 50px;">
+      </div>
+
+      <div class='col-md-12 col-sm-12 text-heading label label-primary'>Current Fortified Totals</div>
+      <div class="col-md-12 col-sm-12 row row-eq-height" style="display:flex;margin-left:0px;">
+        <div class='col-md-4 col-sm-12 panel panel-body borderPanel' style="border-bottom-left-radius: 6px;margin-right: 10px !important;">
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>Qbase Designations:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_Qbase_Designations'></div>
+              </td>
+            </tr>
+          </table>
+
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>Qbase Returned w/o Designation:</div>
+              </td>
+              <td>
+                <div class="total_answer" id='CS_Qbase_Returned'></div>
+              </td>
+            </tr>
+          </table>
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>Qbase Applications Submitted:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_EvalAppsSubmitted_QBase_Count'></div>
+              </td>
+            </tr>
+          </table>
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>Qbase CCRs Completed:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_EvalAppsCompleted_QBase_Count'></div>
+              </td>
+            </tr>
+          </table>
+
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>QBase Total:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_QBase_Total'></div>
+              </td>
+            </tr>
+          </table>
+
+          <div class="horizSplit col-md-12 col-sm-12"></div>
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>Focus Applications Submitted:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_Submitted'></div>
+              </td>
+            </tr>
+          </table>
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>Focus Evaluations:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_Focus_Evaluations'></div>
+              </td>
+            </tr>
+          </table>
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>CCR Completed:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_CCR_Completed'></div>
+              </td>
+            </tr>
+          </table>
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>Focus Pending (In&nbspAudit/On&nbspHold):</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_InAudit_OnHold'></div>
+              </td>
+            </tr>
+          </table>
+
+        </div>
+        <div class='col-md-4 col-sm-12 panel panel-body borderPanel' style="margin-right:10px !important;">
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px;padding-bottom:15px;">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>Focus Designation:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_Focus_Designations_NoQBase'></div>
+              </td>
+            </tr>
+          </table>
+
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px;padding-bottom:15px;border-bottom:0px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>Focus Returned w/o Designation:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_Focus_Returned'></div>
+              </td>
+            </tr>
+          </table>
+
+          <div class="horizSplit col-md-12 col-sm-12"></div>
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>SAH Designations:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_SAH_Designations'></div>
+              </td>
+            </tr>
+          </table>
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>SAH Pre-Evals (pending):</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_SAH_Submissions'></div>
+              </td>
+            </tr>
+          </table>
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px;border-bottom:0px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>SAH Count:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_SAH_Count'></div>
+              </td>
+            </tr>
+          </table>
+
+
+          <div class="horizSplit col-md-12 col-sm-12"></div>
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>NCIUA Designations:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_NCIUA_Designations'></div>
+              </td>
+            </tr>
+          </table>
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>NCIUA Applications:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_NCIUA_Applications'></div>
+              </td>
+            </tr>
+          </table>
+
+        </div>
+        <div class='col-md-4 col-sm-12 panel panel-body borderPanel' style="border-bottom-right-radius: 6px;margin-left: 10px;">
+
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px;border-bottom:0px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>Total FF Home Designations: <span style="font-size:13px"> (Focus+QBase) </span></div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_Focus_Designations'></div>
+              </td>
+            </tr>
+          </table>
+
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px;display:none">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>Total Evaluations:(Focus + QBase)</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_Total_Evaluations'></div>
+              </td>
+            </tr>
+          </table>
+
+
+
+          <div class="horizSplit col-md-12 col-sm-12"></div>
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>Gold Designations:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_Gold_Designations'></div>
+              </td>
+            </tr>
+          </table>
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>Silver Designations:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_Silver_Designations'></div>
+              </td>
+            </tr>
+          </table>
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>Bronze Designations:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_Bronze_Designations'></div>
+              </td>
+            </tr>
+          </table>
+
+
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>Hurricane Designations:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_Hurricane_Designations'></div>
+              </td>
+            </tr>
+          </table>
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px;border-bottom:0px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>High Wind Designations:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_HighWind_Designations'></div>
+              </td>
+            </tr>
+          </table>
+
+
+          <div class="horizSplit col-md-12 col-sm-12"></div>
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>FFSL (Access):</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_FFSL_Count_Access'></div>
+              </td>
+            </tr>
+          </table>
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>FFSL (QBase):</div>
+              </td>
+              <td style="width:25%">
+
+              
+                      <div class='total_answer' id='CS_FFSL_QBase_Count_OLD' style="font-size:15px;" onClick='fn_ModifySettings("CS_FFSL_QBase_Count")'>
+                        <span id='CS_FFSL_QBase_Count' class=""> </span>
+                      </div>
+                      
+      
+
+
+              </td>
+            </tr>
+          </table>
+
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>FFSL Total:</div>
+              </td>
+              <td>
+                <div class='total_answer' id='CS_FFSL_Total'></div>
+              </td>
+            </tr>
+          </table>
+
+
+          <table class="col-md-12 col-sm-12 countTable" style="font-size:15px;display:none">
+            <tr>
+              <td style="width:75%">
+                <div class='total_label text-right'>FFSL Under Construction:</div>
+              </td>
+              <td style="width:25%">
+
+                <table>
+                  <tr>
+                    <td style="width:100%">
+                      <div class='total_answer' id='CS_FFSL_Qbase_UnderConstruction_Count_OLD' style="font-size:15px;" onClick='fn_ModifySettings("CS_FFSL_Qbase_UnderConstruction_Count")'>
+                        <span id='CS_FFSL_Qbase_UnderConstruction_Count' class=""> </span>
+                      </div>
+                      <input type="text" id="CS_FFSL_Qbase_UnderConstruction_Count_input" style="display:none;width:100%;text-align:center"></input>
+                    </td>
+
+                    <td>
+
+                      <span class='fa fa-pencil' id="CS_FFSL_Qbase_UnderConstruction_Count_Edit" style='cursor:pointer;color:green' onClick='fn_ModifySettings("CS_FFSL_Qbase_UnderConstruction_Count")'></span>
+                      <span class='fa fa-save col-md-2 col-sm-2' id="CS_FFSL_Qbase_UnderConstruction_Count_Save" style='display:none;cursor: pointer; color: green; padding: 0px; margin-left: 4px; font-size: 17px; top: -8px;left: 3px;' onClick='fn_ModifySettingsSave("CS_FFSL_Qbase_UnderConstruction_Count")'></span>
+                      <span class='fa fa-times-circle col-md-2 col-sm-2' id="CS_FFSL_Qbase_UnderConstruction_Count_Cancel" style='display:none;cursor: pointer; color: green; padding: 0px;  font-size: 17px; top: 10px;' onClick='fn_ModifySettingsCancel("CS_FFSL_Qbase_UnderConstruction_Count")'></span>
+
+                    </td>
+                  </tr>
+
+                </table>
+
+
+              </td>
+            </tr>
+          </table>
+
+
+
+        </div>
+
+      </div>
+    </div>
+
+
+    <div class="col-lg-3 col-sm-12 panel panel-body" style="border-radius: 8px;background: transparent;box-shadow: none;display:none" id="MainPanelRight">
+      <div class='col-md-12 col-sm-12 text-heading label label-primary'>Designations</div>
+      <div class="col-md-12 col-sm-12 panel panel-body borderPanel">
+
+
+        <table class="col-md-12 col-sm-12 countTable" style="font-size:15px;border-bottom:0px">
+          <tr>
+            <td style="width:75%">
+              <div class='total_label text-right'>Fortified Total&nbspDesignated:  <span style="font-size:13px"> (Focus+FFSL) </span></div>
+            </td>
+            <td>
+              <div class='total_answer' id='CS_Total_Designated'></div>
+            </td>
+          </tr>
+        </table>
+
+        <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 separator"></div>
+
+        <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+          <tr>
+            <td style="width:75%">
+              <div class='total_label text-right'>Commerical Applications:</div>
+            </td>
+            <td>
+              <div class='total_answer' id='CS_Commerical_Applications'></div>
+            </td>
+          </tr>
+        </table>
+        <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+          <tr>
+            <td style="width:75%">
+              <div class='total_label text-right'>Commerical Designations:</div>
+            </td>
+            <td>
+              <div class='total_answer' id='CS_Commerical_Designations'></div>
+            </td>
+          </tr>
+        </table>
+
+
+        <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+          <tr>
+            <td style="width:75%">
+              <div class='total_label text-right'>Commerical In Progress:</div>
+            </td>
+            <td>
+              <div class='total_answer' id='CS_Commerical_InProgress'></div>
+            </td>
+          </tr>
+        </table>
+
+
+        <table class="col-md-12 col-sm-12 countTable" style="font-size:15px;border-bottom:0px;">
+          <tr>
+            <td style="width:75%">
+              <div class='total_label text-right'>Commerical Not Eligible:</div>
+            </td>
+            <td>
+              <div class='total_answer' id='CS_Commerical_NotEligible'></div>
+            </td>
+          </tr>
+        </table>
+
+        <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 separator"></div>
+
+        <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+          <tr>
+            <td style="width:75%">
+              <div class='total_label text-right'>Certified Evaluators:</div>
+            </td>
+            <td>
+              <div class='total_answer' id='CS_Evaluators_count'></div>
+            </td>
+          </tr>
+        </table>
+        <table class="col-md-12 col-sm-12 countTable" style="font-size:15px">
+          <tr>
+            <td style="width:75%">
+              <div class='total_label text-right'>Active Evaluators:</div>
+            </td>
+            <td>
+              <div class='total_answer' id='CS_Active_Evaluators'></div>
+            </td>
+          </tr>
+        </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+      <div class="col-md-12">
+
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function () {
+      console.log(" In Ready...");
+      GetCurrentCounts();
+      $("#MainPanelLeft").fadeIn();
+      $("#MainPanelRight").fadeIn();
+    })
+    function GetCurrentCounts() {
+      var Url = 'http://ibhsfortified.cloudapp.net/IBHSStatsAPI';
+      var URL = Url + "/api/getEvaluationTotals";
+      console.log(URL);
+
+      $.ajax({
+        type: "GET",
+        url: URL,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: OnGetSuccess,
+        error: OnGetFail,
+        global: false,
+      });
+
+      function OnGetSuccess(data) {
+        var TotalCount = 0;
+        $.each(data.CurrentStats, function (e, f) {
+          $("#CS_" + f.Name).text(f.Cnt);
+          if (f.Name == "Focus_Evaluations" || f.Name == "EvalAppsSubmitted_QBase_Count") {
+            TotalCount += f.Cnt;
+          }
+        });
+        $("#CS_Total_Evaluations").text(TotalCount);
+        $("#cntTotBusy").hide();
+      }
+      function OnGetFail(data) {
+        console.dir("ERROR: " + JSON.stringify(data));
+      }
+    }
+  </script>
+</body>
+</html>
